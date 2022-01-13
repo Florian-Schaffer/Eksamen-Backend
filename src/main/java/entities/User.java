@@ -42,6 +42,11 @@ public class User implements Serializable {
   @ManyToMany
   private List<Boat> boatList = new ArrayList<>();
 
+
+
+
+
+
   public List<String> getRolesAsStrings() {
     if (roleList.isEmpty()) {
       return null;
@@ -113,5 +118,6 @@ public class User implements Serializable {
   public List<Boat> getBoatList(){
     return boatList;
   }
+
 
 }

@@ -80,4 +80,15 @@ public class Auction implements Serializable {
     public void setBoat(Boat boat) {
         this.boat = boat;
     }
+
+    @Override
+    public String toString() {
+        return "Auction{" +
+                "auctionName='" + auctionName + '\'' +
+                ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                ", location='" + location + '\'' +
+                ", boat=" + boat +
+                '}';
+    }
 }
