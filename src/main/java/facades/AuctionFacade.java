@@ -1,5 +1,8 @@
 package facades;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import dto.Auction.AuctionDTO;
 import dto.Auction.AuctionsDTO;
 import dto.Boat.BoatDTO;
 import dto.Boat.BoatsDTO;
@@ -9,10 +12,12 @@ import entities.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.WebApplicationException;
 import java.util.List;
 
-public class AuctionFacade {
+public class AuctionFacade implements IAuctionFacade {
 
     private static AuctionFacade instance;
     private static EntityManagerFactory emf;
@@ -29,7 +34,7 @@ public class AuctionFacade {
     }
 
     private EntityManager getEntityManager(){return emf.createEntityManager();}
-
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
 
 
@@ -47,6 +52,22 @@ public class AuctionFacade {
         }
     }
 
+
+    /*public String stringifyAuctions(){
+        EntityManager em = emf.createEntityManager();
+
+        try{
+            TypedQuery<Auction> query = em.createQuery("SELECT a FROM Auction a", Auction.class);
+            List<Auction> qresult = query.getResultList();
+            String result = GSON.toJson(qresult);
+            return result;
+        }finally{
+            em.close();
+        }
+
+
+    }*/
+
     public long getBoatCount(){
         EntityManager em = emf.createEntityManager();
         try{
@@ -60,8 +81,8 @@ public class AuctionFacade {
     public BoatsDTO getBoatsByUser(User user){
         EntityManager em = emf.createEntityManager();
         try{
-            TypedQuery<Boat> query = em.createQuery("SELECT b FROM Boat b JOIN b.users u WHERE u.name = :name", Boat.class);
-            query.setParameter("name", user.getUserName());
+            TypedQuery<Boat> query = em.createQuery("SELECT b FROM Boat b JOIN b.user_name u WHERE u.name = :user_name", Boat.class);
+            query.setParameter("user_name", user.getUserName());
             List<Boat> boatList = query.getResultList();
             return new BoatsDTO(boatList);
         }finally{
@@ -70,6 +91,18 @@ public class AuctionFacade {
     }
 
 
+    public AuctionDTO createAuction(AuctionDTO auctionDTO){
+        EntityManager em = emf.createEntityManager();
+        Auction auction = new Auction(auctionDTO.getAuctionName(),auctionDTO.getDate(),auctionDTO.getTime(),auctionDTO.getLocation());
+        try{
+            em.getTransaction().begin();
+            em.persist(auction);
+            em.getTransaction().commit();
+        }finally{
+            em.close();
+        }
+        return new AuctionDTO(auction);
+    }
 
 
 }

@@ -71,4 +71,6 @@ public class AuctionDTO {
     public void setBoat(BoatDTO boat) {
         this.boat = boat;
     }
+
+
 }
