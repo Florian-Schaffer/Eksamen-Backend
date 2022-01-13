@@ -30,8 +30,19 @@ public class Boat implements Serializable {
     @Column(name = "Year", length = 10)
     private String year;
 
+    private String user_name;
+    private String auction_name;
 
     public Boat(){}
+
+    public Boat(String name, String make, String brand, String year, String user_name, String auction_name){
+        this.boatName = name;
+        this.make = make;
+        this.brand = brand;
+        this.year = year;
+        this.user_name = user_name;
+        this.auction_name = auction_name;
+    }
 
 
     public String getBoatName() {

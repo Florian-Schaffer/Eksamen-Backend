@@ -41,6 +41,12 @@ public class Auction implements Serializable {
 
     public Auction() {}
 
+    public Auction(String auctionName, String date, String location, String time) {
+            this.auctionName = auctionName;
+            this.date = date;
+            this.location = location;
+            this.time = time;
+    }
 
 
     public String getAuctionName() {
