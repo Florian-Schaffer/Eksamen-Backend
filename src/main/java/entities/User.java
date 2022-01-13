@@ -36,6 +36,12 @@ public class User implements Serializable {
   @ManyToMany
   private List<Role> roleList = new ArrayList<>();
 
+  @JoinTable(name = "boats", joinColumns = {
+          @JoinColumn(name = "user_name", referencedColumnName = "user_name")},inverseJoinColumns = {
+          @JoinColumn(name = "boat_name", referencedColumnName = "boat_name")})
+  @ManyToMany
+  private List<Boat> boatList = new ArrayList<>();
+
   public List<String> getRolesAsStrings() {
     if (roleList.isEmpty()) {
       return null;
@@ -46,6 +52,17 @@ public class User implements Serializable {
       });
     return rolesAsStrings;
   }
+
+  public List<String> getBoatsAsString(){
+    if(boatList.isEmpty()){
+      return null;
+    }
+    List<String> boatsAsString = new ArrayList<>();
+    boatList.forEach(boat -> {boatsAsString.add(boat.getBoatName());
+    });
+    return boatsAsString;
+  }
+
 
   public User() {}
 
@@ -87,6 +104,14 @@ public class User implements Serializable {
 
   public void addRole(Role userRole) {
     roleList.add(userRole);
+  }
+
+  public void addBoat(Boat boat){
+    boatList.add(boat);
+  }
+
+  public List<Boat> getBoatList(){
+    return boatList;
   }
 
 }

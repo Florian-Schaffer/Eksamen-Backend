@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="devops-starter" />
+        <module name="Eksamen-Backend" />
         <module name="Currency_Backend" />
       </profile>
     </annotationProcessing>
@@ -14,6 +15,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Currency_Backend" options="-endorseddirs C:\Users\emilr\Currency_Backend\target/endorsed" />
+      <module name="Eksamen-Backend" options="-endorseddirs C:\Uddannelse\Datamatiker\Sem3\Github\3-sem-Eksamen-Backend\Eksamen-Backend\target/endorsed" />
       <module name="devops-starter" options="-endorseddirs C:\Users\Flobobo\Datamatiker\Sem3\Github\ca2_backend\target/endorsed" />
     </option>
   </component>
